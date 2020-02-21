@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "format": "^0.2.2",
+    "ionicons": "^5.0.0",
+    "webfonts-generator2": "^0.0.5"
+  }
+}

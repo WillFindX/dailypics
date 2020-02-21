@@ -18,6 +18,7 @@ import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:dailypics/ionicons.g.dart';
 import 'package:dailypics/misc/bean.dart';
 import 'package:dailypics/model/app.dart';
 import 'package:dailypics/utils/api.dart';
@@ -30,7 +31,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' show CircularProgressIndicator, Colors, Divider;
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ionicons/flutter_ionicons.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -187,7 +187,7 @@ class _DetailsPageState extends State<DetailsPage> {
           child: Padding(
             padding: const EdgeInsets.only(left: 12),
             child: Icon(
-              data.marked ? Ionicons.ios_heart : Ionicons.ios_heart_empty,
+              data.marked ? Ionicons.heart : Ionicons.heart_outline,
               color: CupertinoColors.activeBlue,
               size: 22,
             ),

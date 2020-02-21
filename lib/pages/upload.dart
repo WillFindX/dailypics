@@ -16,11 +16,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:dailypics/ionicons.g.dart';
 import 'package:dailypics/model/app.dart';
 import 'package:dailypics/utils/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart' show LinearProgressIndicator;
-import 'package:flutter_ionicons/flutter_ionicons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -199,7 +199,7 @@ class _UploadPageState extends State<UploadPage> {
                       );
                     },
                     child: const Icon(
-                      Ionicons.ios_informat_circle_outline,
+                      Ionicons.information_circle_outline,
                       color: Color(0xFF919191),
                     ),
                   ),
@@ -207,7 +207,7 @@ class _UploadPageState extends State<UploadPage> {
                 const Align(
                   alignment: Alignment.center,
                   child: Icon(
-                    Ionicons.ios_add_circle_outline,
+                    Ionicons.add_circle_outline,
                     color: Color(0xFF9C9C9C),
                     size: 64,
                   ),
@@ -235,12 +235,12 @@ class _UploadPageState extends State<UploadPage> {
         children: <Widget>[
           CupertinoButton(
             padding: EdgeInsets.zero,
-            child: Icon(Ionicons.ios_arrow_up),
+            child: Icon(Ionicons.arrow_up),
             onPressed: () => FocusScope.of(context).previousFocus(),
           ),
           CupertinoButton(
             padding: EdgeInsets.zero,
-            child: Icon(Ionicons.ios_arrow_down),
+            child: Icon(Ionicons.arrow_down),
             onPressed: () => FocusScope.of(context).nextFocus(),
           ),
           Expanded(child: Container()),
