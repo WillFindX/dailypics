@@ -1,0 +1,7 @@
+import 'package:dailypics/config/base.dart';
+
+extension AdmobConfig on Config {
+  static const String admob_app_id = 'ca-app-pub-################~##########';
+
+  static const String admob_unit_id = 'ca-app-pub-3940256099942544/6300978111';
+}

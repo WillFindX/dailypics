@@ -1,0 +1,6 @@
+signing.storeFile=
+signing.storePassword=
+signing.keyAlias=
+signing.keyPassword=
+admob.appId=ca-app-pub-################~##########
+admob.unitId=ca-app-pub-3940256099942544/6300978111

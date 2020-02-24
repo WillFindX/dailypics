@@ -1,5 +1,4 @@
 buildscript {
-    ext.kotlin_version = "1.3.50"
     repositories {
         google()
         jcenter()
@@ -7,7 +6,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.3.61"
     }
 }
 
@@ -16,6 +15,7 @@ allprojects {
         google()
         jcenter()
     }
+    readLocalProperties()
 }
 
 rootProject.buildDir = "../build"
@@ -28,4 +28,22 @@ subprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+def readLocalProperties() {
+    def properties = new Properties()
+    def file = file("./app/local.properties")
+    if (file.exists()) {
+        file.withReader("UTF-8") { reader ->
+            properties.load(reader)
+        }
+    }
+
+    ext.signingStoreFile = properties.getProperty("signing.storeFile")
+    ext.signingStorePassword = properties.getProperty("signing.storePassword")
+    ext.signingKeyAlias = properties.getProperty("signing.keyAlias")
+    ext.signingKeyPassword = properties.getProperty("signing.keyPassword")
+    
+    ext.admobAppId = properties.getProperty("admob.appId")
+    ext.admobUnitId = properties.getProperty("admob.unitId")
 }

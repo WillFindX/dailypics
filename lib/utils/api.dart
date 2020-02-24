@@ -17,7 +17,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dailypics/misc/bean.dart';
-import 'package:dailypics/misc/config.g.dart';
+import 'package:dailypics/config/base.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 

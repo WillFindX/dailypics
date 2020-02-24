@@ -25,6 +25,7 @@ import 'package:dailypics/utils/utils.dart';
 import 'package:dailypics/widget/adaptive_scaffold.dart';
 import 'package:dailypics/widget/image_card.dart';
 import 'package:dailypics/widget/optimized_image.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart' show CircularProgressIndicator, Colors, Divider;
@@ -69,11 +70,36 @@ class DetailsPage extends StatefulWidget {
 }
 
 class _DetailsPageState extends State<DetailsPage> {
+  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo();
+  BannerAd bannerAd;
+  //bool isBannerAdShowed = false;
+
   GlobalKey repaintKey = GlobalKey();
   GlobalKey shareBtnKey = GlobalKey();
+  ScrollController controller = ScrollController();
   bool popped = false;
   Picture data;
   String error;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseAdMob.instance.initialize(appId: FirebaseAdMob.testAppId);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      double pixels = controller.position.pixels;
+      double maxScrollExtent = controller.position.maxScrollExtent;
+      if (pixels == maxScrollExtent) {
+        _showBannerAd();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    _hideBannerAd();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +158,9 @@ class _DetailsPageState extends State<DetailsPage> {
             NotificationListener<ScrollUpdateNotification>(
               onNotification: _onScrollUpdate,
               child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.zero,
+                controller: controller,
                 children: <Widget>[
                   AspectRatio(
                     aspectRatio: data.width / data.height,
@@ -333,6 +361,7 @@ class _DetailsPageState extends State<DetailsPage> {
     return Container(
       key: shareBtnKey,
       alignment: Alignment.center,
+      margin: const EdgeInsets.only(bottom: 90),
       padding: const EdgeInsets.symmetric(vertical: 29),
       child: DecoratedBox(
         decoration: BoxDecoration(
@@ -376,9 +405,14 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   bool _onScrollUpdate(ScrollUpdateNotification n) {
-    if (n.metrics.outOfRange && n.metrics.pixels < -64 && !popped) {
+    bool outOfRange = n.metrics.outOfRange;
+    double pixels = n.metrics.pixels;
+    double maxScrollExtent = n.metrics.maxScrollExtent;
+    if (outOfRange && pixels < -64 && !popped) {
       Navigator.of(context).pop();
       popped = true;
+    } else if (!outOfRange && maxScrollExtent - pixels < 90) {
+      _showBannerAd();
     }
     return false;
   }
@@ -433,6 +467,27 @@ class _DetailsPageState extends State<DetailsPage> {
     Size size = renderBox.size;
     Rect rect = Rect.fromLTWH(offset.dx, offset.dy, size.width, size.height);
     await SystemUtils.share(file, rect);
+  }
+
+  Future<void> _showBannerAd() async {
+    if (bannerAd != null) return;
+    bannerAd = BannerAd(
+      adUnitId: BannerAd.testAdUnitId,
+      targetingInfo: targetingInfo,
+      size: AdSize.smartBanner,
+    );
+    await bannerAd.load();
+    await bannerAd.show();
+    //isBannerAdShowed = true;
+  }
+
+  Future<void> _hideBannerAd() async {
+    //await Future.delayed(const Duration(milliseconds: 500), () async {
+      if (bannerAd == null) return;
+      await bannerAd.dispose();
+      bannerAd = null;
+      //isBannerAdShowed = false;
+    //});
   }
 }
 
