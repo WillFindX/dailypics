@@ -9,7 +9,7 @@ class Ionicons {
   Ionicons._();
 
   // Generated code: do not hand-edit.
-  // See https://github.com/flutter/flutter/wiki/Updating-Material-Design-Fonts
+  // See https://github.com/KagurazakaHanabi/dailypics/blob/master/scripts/README.md
   // BEGIN GENERATED`
 
 const dartConstant = `
