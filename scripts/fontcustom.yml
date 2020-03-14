@@ -16,13 +16,13 @@ font_name: Ionicons
 css_selector: .i-{{glyph}}
 
 # Generate fonts without asset-busting hashes.
-#no_hash: true
+no_hash: true
 
 # Encode WOFF fonts into the generated CSS.
 base64: false
 
 # Forces compilation, even if inputs have not changed
-#force: true
+force: true
 
 # Display (possibly useful) debugging messages.
 debug: true
@@ -53,7 +53,7 @@ input:
 #  templates: my/templates
 
 output:
-  fonts: fonts
+  fonts: build
 #  css: app/assets/stylesheets
 #  preview: app/views/styleguide
 #  my-custom-template.yml: path/to/template/output
@@ -97,3 +97,4 @@ output:
 
 # Horizontally fit glyphs to their individual vector widths.
 autowidth: true
+
