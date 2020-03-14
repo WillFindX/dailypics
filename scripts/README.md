@@ -9,6 +9,9 @@ gem install fontcustom
 git clone https://github.com/ionic-team/ionicons.git ionicons-git
 fontcustom compile
 
+cp build/Ionicons.ttf ../res/
+
+npm install
 node update_ionicons.js
 ```
 
